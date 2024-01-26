@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      spacing: {
+        "15%": "15%", // ml-15%
+      },
+    },
   },
   plugins: [],
 };
