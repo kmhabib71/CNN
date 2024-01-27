@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function MidCard({ link, imageSrc, tag, text }) {
+function MidCard({ link, imageSrc, tag, text, horizontal, color }) {
   return (
     <Link to={link}>
-      <div className="pb-2">
+      <div className={` ${horizontal ? "p-2" : ""} ${color ? "bg-black" : ""}`}>
         <div className="relative w-305 h-171 group">
           <img
             src={imageSrc}
@@ -20,7 +20,10 @@ function MidCard({ link, imageSrc, tag, text }) {
           )}
         </div>
         <div>
-          <h4 className="text-xl font-bold mb-2 mt-2 hover:underline hover:text-gray-700">
+          <h4
+            className={`text-xl font-bold mb-2 mt-2 ${
+              color ? "text-white" : ""
+            } hover:underline hover:text-gray-700`}>
             {text}
           </h4>
         </div>
