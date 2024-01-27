@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function BidCard({ link, imageSrc, tag, text }) {
+function BigCard({ link, imageSrc, tag, text }) {
   return (
     <Link to={link}>
       <div className="max-w-screen mx-auto mb-3 ">
@@ -29,4 +29,4 @@ function BidCard({ link, imageSrc, tag, text }) {
   );
 }
 
-export default BidCard;
+export default BigCard;

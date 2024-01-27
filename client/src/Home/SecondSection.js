@@ -2,7 +2,9 @@ import React from "react";
 import ColumnHead from "../Commmon/ColumnHead/ColumnHead";
 import MidCard from "../components/Cards/MidCard";
 import TextOnly from "../components/Cards/TextOnly";
-import BidCard from "../components/Cards/BidCard";
+import SmallHorizontalCard from "../components/Cards/SmallHorizontalCard";
+import { Link } from "react-router-dom";
+import BigCard from "../components/Cards/BigCard";
 
 function SecondSection() {
   const midCards = [
@@ -103,15 +105,33 @@ function SecondSection() {
         ))}
       </div>
       <div className="w-full md:w-1/3 p-4">
-        <ColumnHead columnHeadTag="MORE TOP STORIES" />
+        <ColumnHead columnHeadTag="FEATURED" />
         {bigCard.map((card, index) => (
-          <BidCard key={index} {...card} />
+          <BigCard key={index} {...card} />
         ))}
-        {textOnly.map((card, index) => (
-          <TextOnly key={index} {...card} />
+        {smallHorizontalCard.map((card, index) => (
+          <SmallHorizontalCard key={index} {...card} />
         ))}
       </div>
-      <div className="w-full md:w-1/3 p-4"></div>
+      <div className="w-full md:w-1/3 p-4">
+        <Link to="/adv-link">
+          <div className="w-full h-64 group mb-4">
+            <div className="w-full h-full group">
+              <img
+                src="images/SecondSection/adv.jpg"
+                alt=""
+                className="w-full h-full object-cover "
+              />
+            </div>
+            <div className="text-xs">Advertisement</div>
+          </div>
+        </Link>
+        <div>
+          {smallHorizontalCard3.map((card, index) => (
+            <SmallHorizontalCard key={index} {...card} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
