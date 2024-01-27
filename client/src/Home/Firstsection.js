@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import MidCard from "../components/Cards/MidCard";
+import TextOnly from "../components/Cards/TextOnly";
 
 function Firstsection() {
   const MidCards = [
@@ -81,7 +82,7 @@ function Firstsection() {
                 Perhaps most telling about the state of the race was how
                 candidates reacted to Christies remarks criticizing Trump
               </h4>
-              <ul>
+              <ul className="px-5">
                 <li className="list-disc">
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui,
                   fugit.
@@ -115,7 +116,29 @@ function Firstsection() {
             <MidCard key={index} {...card} />
           ))}
         </div>
-        <div className="w-full md:w-1/3 p-4 bg-red-400">div</div>
+        <div className="w-full md:w-1/3 p-4 ">
+          <Link to="/news-link" className="relative w-305 h-171 group mb-4">
+            <video
+              autoPlay={true}
+              muted
+              playsinline
+              loop
+              controls
+              className="w-full  rounded-sm">
+              <source src="/videos/FirstSection/video.mp4" />
+            </video>
+          </Link>
+          <div>
+            <div className="mb-2 mt-4 font-bold text-xl hover:underline">
+              Catch up on todays global news
+            </div>
+            <div>
+              {textOnly.map((card, index) => (
+                <TextOnly key={index} {...card} />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function MidCard({ link, imageSrc, tag, text }) {
+function BidCard({ link, imageSrc, tag, text }) {
   return (
     <Link to={link}>
-      <div className="pb-2">
-        <div className="relative w-305 h-171 group">
+      <div className="max-w-screen mx-auto mb-3 ">
+        <div className="relative group">
           <img
             src={imageSrc}
             alt=""
@@ -29,4 +29,4 @@ function MidCard({ link, imageSrc, tag, text }) {
   );
 }
 
-export default MidCard;
+export default BidCard;
