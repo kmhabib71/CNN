@@ -11,6 +11,7 @@ import EighthSection from "./EighthSection";
 import NinthSection from "./NinthSection";
 import TenthSection from "./TenthSection";
 import EleventhSection from "./EleventhSection";
+import Footer from "../Commmon/Footer/Footer";
 
 function Home() {
   return (
@@ -27,7 +28,7 @@ function Home() {
       <NinthSection />
       <TenthSection />
       <EleventhSection />
-      {/* <Footer />  */}
+      <Footer />
     </>
   );
 }
