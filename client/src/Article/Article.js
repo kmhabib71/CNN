@@ -1,8 +1,35 @@
 import React from "react";
 import Header from "../Commmon/Header/Header";
 import Footer from "../Commmon/Footer/Footer";
+import { Link } from "react-router-dom";
+import ThirdAdv from "../Home/ThirdAdv";
+import TenthSection from "../Home/TenthSection";
+import ColumnHead from "../Commmon/ColumnHead/ColumnHead";
+import SmallHorizontalCard from "../components/Cards/SmallHorizontalCard";
 
 function Article() {
+  const smallHorizontalCard = [
+    {
+      link: "/your-link-url",
+      imageSrc: "images/Article/21.jpg",
+      text: "Sununu endorses Haley, hoping to slow Trump’s march to ...",
+      tag: "",
+    },
+    {
+      link: "/your-link-url",
+      imageSrc: "images/Article/22.jpg",
+      text: "Here’s Nikki Haley’s path to the Republican ...",
+      tag: "",
+    },
+
+    {
+      link: "/your-link-url",
+      imageSrc: "images/Article/23.jpg",
+      text: "Opinion: The best way to keep Trump off the ballot",
+      tag: "",
+    },
+  ];
+
   return (
     <>
       <Header />
@@ -50,10 +77,172 @@ function Article() {
           <div className="content pt-6">
             <div className="image-box bg-gray-100">
               <img src="/images/Article/11.webp" alt="" className="w-full" />
+              <div className="heading-tag text-xs text-gray-600 py-5 drop-shadow-sm p-2 border-b border-gray-300">
+                Former New Jersey Gov. Chris Christie speaks at an event in
+                Nashua, New Hampshire, on October 13, 2023.
+              </div>
             </div>
+            <div className="article-text ml-2 md:ml-16 mr-2 md:mr-16 mt-4">
+              <p className="font-bold">Durham, New Hampshire (CNN) </p>
+
+              <p>
+                <Link to="to-link" className="underline">
+                  Chris Christie
+                </Link>{" "}
+                has a message for those calling for him to exit the Republican
+                presidential primary to help consolidate the field against
+                front-runner{" "}
+                <Link to="to-link" className="underline">
+                  Donald Trump
+                </Link>
+                : “I’m not going anywhere.”
+              </p>
+              <p>
+                “If they were up here in New Hampshire and saw the crowds we
+                were getting, the reaction we were getting, they wouldn’t
+                honestly be able to say any of that,” the former New Jersey
+                governor told CNN in an interview Friday.
+              </p>
+              <p>
+                Christie, who is counting on a strong performance in the{" "}
+                <Link to="to-link" className="underline">
+                  first-in-the-nation primary
+                </Link>{" "}
+                on January 23 to buoy his campaign, has positioned himself as a
+                “truth teller” in the race, drawing a contrast with Trump and
+                often criticizing his onetime ally’s conduct.
+              </p>
+              <p>
+                But he has struggled to register in the national polls and, a
+                little over a month before voting begins in the GOP primary,
+                several top party financiers looking to boost a Trump
+                alternative are throwing their support behind former South
+                Carolina Gov.{" "}
+                <Link to="to-link" className="underline">
+                  Nikki Haley
+                </Link>
+                .
+              </p>
+              <p>
+                <Link to="to-link" className="underline">
+                  Chris Christie
+                </Link>{" "}
+                has a message for those calling for him to exit the Republican
+                presidential primary to help consolidate the field against
+                front-runner{" "}
+                <Link to="to-link" className="underline">
+                  Donald Trump
+                </Link>
+                : “I’m not going anywhere.”
+              </p>
+              <p>
+                “If they were up here in New Hampshire and saw the crowds we
+                were getting, the reaction we were getting, they wouldn’t
+                honestly be able to say any of that,” the former New Jersey
+                governor told CNN in an interview Friday.
+              </p>
+              <div style={{ padding: "56.25% 0 0 0", position: "relative" }}>
+                <iframe
+                  src="https://player.vimeo.com/video/896122667?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  title="video (online-video-cutter.com)"></iframe>
+              </div>
+
+              <p>
+                Christie, who is counting on a strong performance in the{" "}
+                <Link to="to-link" className="underline">
+                  first-in-the-nation primary
+                </Link>{" "}
+                on January 23 to buoy his campaign, has positioned himself as a
+                “truth teller” in the race, drawing a contrast with Trump and
+                often criticizing his onetime ally’s conduct.
+              </p>
+              <p>
+                But he has struggled to register in the national polls and, a
+                little over a month before voting begins in the GOP primary,
+                several top party financiers looking to boost a Trump
+                alternative are throwing their support behind former South
+                Carolina Gov.{" "}
+                <Link to="to-link" className="underline">
+                  Nikki Haley
+                </Link>
+                .
+              </p>
+              <p>
+                <Link to="to-link" className="underline">
+                  Chris Christie
+                </Link>{" "}
+                has a message for those calling for him to exit the Republican
+                presidential primary to help consolidate the field against
+                front-runner{" "}
+                <Link to="to-link" className="underline">
+                  Donald Trump
+                </Link>
+                : “I’m not going anywhere.”
+              </p>
+              <p>
+                “If they were up here in New Hampshire and saw the crowds we
+                were getting, the reaction we were getting, they wouldn’t
+                honestly be able to say any of that,” the former New Jersey
+                governor told CNN in an interview Friday.
+              </p>
+              <p>
+                Christie, who is counting on a strong performance in the{" "}
+                <Link to="to-link" className="underline">
+                  first-in-the-nation primary
+                </Link>{" "}
+                on January 23 to buoy his campaign, has positioned himself as a
+                “truth teller” in the race, drawing a contrast with Trump and
+                often criticizing his onetime ally’s conduct.
+              </p>
+              <p>
+                But he has struggled to register in the national polls and, a
+                little over a month before voting begins in the GOP primary,
+                several top party financiers looking to boost a Trump
+                alternative are throwing their support behind former South
+                Carolina Gov.{" "}
+                <Link to="to-link" className="underline">
+                  Nikki Haley
+                </Link>
+                .
+              </p>
+            </div>
+            <ThirdAdv />
+          </div>
+          <TenthSection />
+        </div>
+        <div className="w-full md:w-1/4 p-4">
+          <div className="mt-12 md:mt-[12.5rem]">
+            <ColumnHead columnHeadTag="MORE FROM CNN" />
+          </div>
+          <div>
+            {smallHorizontalCard.map((card, index) => (
+              <SmallHorizontalCard key={index} {...card} />
+            ))}
+          </div>
+          <div className="mt-5">
+            <Link to="/adv-link">
+              <div className="w-full h-64 group mb-4">
+                <div className="w-full h-full group">
+                  <img
+                    src="/images/Article/adv.png"
+                    alt=""
+                    className="w-full h-full object-cover "
+                  />
+                </div>
+                <div className="text-xs">Advertisement</div>
+              </div>
+            </Link>
           </div>
         </div>
-        <div className="w-full md:w-1/4 p-4"></div>
       </div>
       <Footer />
     </>
