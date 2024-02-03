@@ -3,13 +3,37 @@ import { Link } from "react-router-dom";
 import { Eye, EyeOff } from "react-feather";
 import AuthFooter from "./AuthFooter";
 function Register() {
-  const [showPassword, setShowPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   const handleSubmit = (e) => {
     console.log(e);
   };
   const handleEmailChange = (e) => {
     console.log(e);
   };
+  const validatePassword = () => {
+    const hasLowercase = /[a-z]/.test(password);
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasDigit = /\d/.test(password);
+    const hasSymbol = /[@$!%*?&]/.test(password);
+    const isLengthValid = password.length >= 8;
+
+    return {
+      hasLowercase,
+      hasUppercase,
+      hasDigit,
+      hasSymbol,
+      isLengthValid,
+    };
+  };
+
+  const passwordValidation = validatePassword();
   return (
     <div>
       <div className="flex flex-col items-center pt-8 pb-10 justify-center bg-red-100">
@@ -39,24 +63,84 @@ function Register() {
                   required
                   className="text-gray-900 border border-gray-800 rounded block w-full p-3 placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email Address"
+                  value={email}
                   onChange={handleEmailChange}
                 />
               </div>
               <div className="mb-4 relative">
                 {/* <label htmlFor="email-address sr-only"> Email Address</label> */}
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="Password"
                   name="Password"
                   autoComplete="password"
                   required
                   className="text-gray-900 border border-gray-800 rounded block w-full p-3 placeholder-gray-500 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
-                  onChange={handleEmailChange}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onKeyDown={() => {
+                    setIsPasswordFocused(true);
+                    setValidationErrors(false);
+                  }}
                 />
-                <span className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer z-20">
+                <span
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer z-20"
+                  onClick={togglePasswordVisibility}>
                   {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
                 </span>
+                {isPasswordFocused && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "100%",
+                      left: "0",
+                      display: password ? "block" : "none",
+                      zIndex: "999", // Ensure the tooltip is above other elements
+                    }}
+                    className="bg-white text-xs p-2 border rounded drop-shadow-md border-gray-500 z-10">
+                    <div
+                      style={{
+                        color: passwordValidation.hasLowercase
+                          ? "green"
+                          : "red",
+                      }}>
+                      {passwordValidation.hasLowercase ? "✓" : "✗"} At least one
+                      lowercase letter
+                    </div>
+                    <div
+                      style={{
+                        color: passwordValidation.hasUppercase
+                          ? "green"
+                          : "red",
+                      }}>
+                      {passwordValidation.hasUppercase ? "✓" : "✗"} At least one
+                      uppercase letter
+                    </div>
+                    <div
+                      style={{
+                        color: passwordValidation.hasDigit ? "green" : "red",
+                      }}>
+                      {passwordValidation.hasDigit ? "✓" : "✗"} At least one
+                      digit
+                    </div>
+                    <div
+                      style={{
+                        color: passwordValidation.hasSymbol ? "green" : "red",
+                      }}>
+                      {passwordValidation.hasSymbol ? "✓" : "✗"} At least one
+                      special character
+                    </div>
+                    <div
+                      style={{
+                        color: passwordValidation.isLengthValid
+                          ? "green"
+                          : "red",
+                      }}>
+                      {passwordValidation.isLengthValid ? "✓" : "✗"} Minimum
+                      length of 8 characters
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex items-center justify-between mt-5 mb-5">
