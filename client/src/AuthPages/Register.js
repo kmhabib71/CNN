@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff } from "react-feather";
 import AuthFooter from "./AuthFooter";
+import axios from "axios";
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,10 +12,19 @@ function Register() {
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
-  const handleSubmit = (e) => {
-    console.log(e);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8080/api/register", {
+        email,
+        password,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleEmailChange = (e) => {
+    setEmail(e.target.value);
     console.log(e);
   };
   const validatePassword = () => {
