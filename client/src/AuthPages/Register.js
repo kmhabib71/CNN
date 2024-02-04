@@ -19,6 +19,7 @@ function Register() {
         email,
         password,
       });
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }

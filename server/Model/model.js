@@ -20,19 +20,15 @@ const userSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: function (value) {
-        const hasLowercase = /[a-z]/.test(password);
-        const hasUppercase = /[A-Z]/.test(password);
-        const hasDigit = /\d/.test(password);
-        const hasSymbol = /[@$!%*?&]/.test(password);
-        const isLengthValid = password.length >= 8;
+        const hasLowercase = /[a-z]/.test(value);
+        const hasUppercase = /[A-Z]/.test(value);
+        const hasDigit = /\d/.test(value);
+        const hasSymbol = /[@$!%*?&]/.test(value);
+        const isLengthValid = value.length >= 8;
 
-        return {
-          hasLowercase,
-          hasUppercase,
-          hasDigit,
-          hasSymbol,
-          isLengthValid,
-        };
+        return (
+          hasLowercase && hasUppercase && hasDigit && hasSymbol && isLengthValid
+        );
       },
       message:
         "Password must contain at least one lowercase letter, one uppercase letter, one digit, one special character and be at least 8 characters long",
