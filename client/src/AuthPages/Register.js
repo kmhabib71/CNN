@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Eye, EyeOff } from "react-feather";
 import AuthFooter from "./AuthFooter";
 import axios from "axios";
@@ -9,19 +9,25 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
+  const [registered, setRegistered] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsPasswordFocused(false);
     try {
       const response = await axios.post("http://localhost:8080/api/register", {
         email,
         password,
       });
-      console.log(response.data);
+      alert(response.data.message);
+      setRegistered(true);
     } catch (error) {
-      console.log(error);
+      if (error.response && error.response.status === 400) {
+        setValidationErrors(error.response.data);
+        console.log("error.response.data is: ", error.response.data);
+      }
     }
   };
   const handleEmailChange = (e) => {
@@ -45,6 +51,9 @@ function Register() {
   };
 
   const passwordValidation = validatePassword();
+  if (registered) {
+    return <Navigate to="/login" />;
+  }
   return (
     <div>
       <div className="flex flex-col items-center pt-8 pb-10 justify-center bg-red-100">
@@ -76,6 +85,10 @@ function Register() {
                   placeholder="Email Address"
                   value={email}
                   onChange={handleEmailChange}
+                  onKeyDown={() => {
+                    setIsPasswordFocused(false);
+                    setValidationErrors(false);
+                  }}
                 />
               </div>
               <div className="mb-4 relative">
@@ -164,6 +177,24 @@ function Register() {
                 </p>
               </div>
             </div>
+            {validationErrors && (
+              <div className="text-red-600">
+                {Object.keys(validationErrors).map((key) => {
+                  if (typeof validationErrors[key] === "object") {
+                    return Object.values(validationErrors[key]).map((error) => (
+                      <p className="mb-2 text-sm" key={error}>
+                        {error}
+                      </p>
+                    ));
+                  }
+                  return (
+                    <p className="mb-2 text-sm" key={key}>
+                      {validationErrors[key]}
+                    </p>
+                  );
+                })}
+              </div>
+            )}
             <div>
               <button
                 type="submit"
