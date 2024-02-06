@@ -4,6 +4,7 @@ import Home from "./Home/Home";
 import Article from "./Article/Article";
 import Register from "./AuthPages/Register";
 import Login from "./AuthPages/Login";
+import Admin from "./Admin/Admin";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/article" element={<Article />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/Admin/*" element={<Admin />} />
         </Routes>
       </Router>
     </>

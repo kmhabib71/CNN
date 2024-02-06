@@ -1,6 +1,12 @@
 const { User } = require("../Model/model");
 const bcrypt = require("bcrypt");
 
+exports.isAuth = async function (req, res) {
+  const userid = req.session.userid;
+  console.log("session from isAuth :", req.session);
+  res.status(200).json({ userid: userid });
+};
+
 exports.login = async function (req, res) {
   try {
     const { email, password } = req.body;
@@ -14,7 +20,7 @@ exports.login = async function (req, res) {
     if (!passwordMatch) {
       return res.status(400).json({ message: "Invalid Credential" });
     }
-    res.status(200).json({ message: "Login Successful" });
+
     req.session.userid = user._id;
     if (user.role) {
       req.session.userRole = user.role;
@@ -22,6 +28,7 @@ exports.login = async function (req, res) {
     req.session.save();
 
     console.log("req.session :", req.session);
+    res.status(200).json({ message: "Login Successful" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
