@@ -1,5 +1,32 @@
 const { User } = require("../Model/model");
 const bcrypt = require("bcrypt");
+
+exports.login = async function (req, res) {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(400).json({ message: "Invalid Credential" });
+    }
+    res.status(200).json({ message: "Login Successful" });
+    req.session.userid = user._id;
+    if (user.role) {
+      req.session.userRole = user.role;
+    }
+    req.session.save();
+
+    console.log("req.session :", req.session);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 exports.register = async function (req, res) {
   const { email, password } = req.body;
   try {
