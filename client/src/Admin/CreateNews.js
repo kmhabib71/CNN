@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Editor from "./TextEditor/TextEditorWithQuill";
 function CreateNews() {
   const [title, setTitle] = useState("");
   const [types, setTypes] = useState([]);
@@ -8,6 +8,7 @@ function CreateNews() {
   const [selectedType, setSelectedType] = useState("");
   const [selectedNewsCategory, setSelectedNewsCategory] = useState("");
   const [selectedNewsSubCategory, setSelectedNewsSubCategory] = useState("");
+  const [editorText, setEditorText] = useState("");
   const [authorName, setAuthorName] = useState("");
   const handleNewsTypeChange = (e) => {
     setSelectedType(e.target.value);
@@ -23,6 +24,10 @@ function CreateNews() {
   };
   const handleFileChange = (e) => {
     console.log(e.target.value);
+  };
+  const handleEditorChange = (content) => {
+    setEditorText(content);
+    console.log("Editor Content: ", content);
   };
   const handleSubmit = async () => {};
   return (
@@ -83,6 +88,12 @@ function CreateNews() {
                 Select Image or Video
               </label>
             </div>
+            <Editor
+              placeholder="Write Something..."
+              onChange={handleEditorChange}
+              initialText={""}
+            />
+            <div className="mb-10"></div>
             <div className="mb-10">
               <label htmlFor="newsType" className="block text-sm text-gray-600">
                 News Category
