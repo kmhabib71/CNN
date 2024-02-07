@@ -10,6 +10,11 @@ function CreateNews() {
   const [selectedNewsSubCategory, setSelectedNewsSubCategory] = useState("");
   const [editorText, setEditorText] = useState("");
   const [authorName, setAuthorName] = useState("");
+  const [error, setError] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [fileType, setFileType] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+
   const handleNewsTypeChange = (e) => {
     setSelectedType(e.target.value);
     console.log(e.target.value);
@@ -22,8 +27,43 @@ function CreateNews() {
     setSelectedNewsSubCategory(e.target.value);
     console.log(e.target.value);
   };
+  const maxFileSizeinBytes = 50 * 1024 * 1024;
+  const allowedFileTypes = [
+    "image/jpeg",
+    "image/JPG",
+    "image/png",
+    "image/gif",
+    "video/mp4",
+    "video/webm",
+    "video/ogg",
+  ];
   const handleFileChange = (e) => {
-    console.log(e.target.value);
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > maxFileSizeinBytes) {
+        setError("File Size in exceeds the maximum allowed size.");
+        return;
+      }
+    }
+    const fileType = file.type.split("/")[0];
+    setSelectedFile(file);
+    setFileType(fileType);
+    setError(null);
+
+    if (allowedFileTypes.includes(file.type)) {
+      if (fileType === "image") {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const fileDataUrl = reader.result;
+          setPreviewUrl(fileDataUrl);
+        };
+
+        reader.readAsDataURL(file);
+      } else if (fileType === "video") {
+        setPreviewUrl(URL.createObjectURL(file));
+      }
+    }
+    console.log(file);
   };
   const handleEditorChange = (content) => {
     setEditorText(content);
@@ -87,6 +127,28 @@ function CreateNews() {
                 className="mt-1 p-2 w-full cursor-pointer border border-gray-300 rounded-md flex items-center  justify-center bg-blue-600 text-white hover:bg-gray-900">
                 Select Image or Video
               </label>
+              {error && <p className="text-red-500">{error}</p>}
+              {previewUrl && (
+                <div className="mt-2">
+                  {fileType === "image" && (
+                    <img
+                      src={previewUrl}
+                      alt="Preview image"
+                      className="max-w-full h-96"
+                    />
+                  )}
+                  {fileType === "video" && (
+                    <video
+                      controls
+                      src={previewUrl}
+                      alt="Preview image"
+                      className="w-100  object-cover">
+                      <source src={previewUrl} type={selectedFile.type} />
+                      Your browser does not support the video tag.
+                    </video>
+                  )}
+                </div>
+              )}
             </div>
             <Editor
               placeholder="Write Something..."
