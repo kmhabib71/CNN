@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import Sidebar from "./Sidebar";
 
 function Admin() {
   axios
@@ -16,7 +17,14 @@ function Admin() {
       console.log(error);
     });
 
-  return <div>Admin</div>;
+  return (
+    <div className="flex flex-col min-h-screen max-h-full dashboard w-full">
+      <div className="flex">
+        <Sidebar />
+        <div></div>
+      </div>
+    </div>
+  );
 }
 
 export default Admin;
