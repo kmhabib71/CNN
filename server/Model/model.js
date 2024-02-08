@@ -47,6 +47,16 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
+const subcategorySchema = new mongoose.Schema({
+  name: { type: String },
+});
+const categorySchema = new mongoose.Schema({
+  title: { type: String },
+  items: [subcategorySchema],
+});
+const Category = mongoose.model("Category", categorySchema);
+
 module.exports = {
   User: User,
+  Category: Category,
 };
