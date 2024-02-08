@@ -84,13 +84,24 @@ function CreateNews() {
       try {
         const typeResponse = await axios.get(`${backEndBaseUrl}/api/types`);
         setTypes(typeResponse.data);
-        console.log("typeResponse.data ", typeResponse.data);
+
+        const categoryResponse = await axios.get(
+          `${backEndBaseUrl}/api/getAllNewsCategories`
+        );
+        setNewsCategory(categoryResponse.data);
+
+        if (selectedNewsCategory) {
+          const subcategoryResponse = await axios.get(
+            `${backEndBaseUrl}/api/getsubcategories/${selectedNewsCategory}`
+          );
+          setNewsSubCategory(subcategoryResponse.data);
+        }
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-  }, []);
+  }, [selectedNewsCategory]);
 
   const handleSubmit = async () => {};
   return (
@@ -193,8 +204,8 @@ function CreateNews() {
                   Select News Category
                 </option>
                 {NewsCategory.map((category) => (
-                  <option value={category.name} key={category._id}>
-                    {category.name}
+                  <option value={category.title} key={category._id}>
+                    {category.title}
                   </option>
                 ))}
               </select>

@@ -10,6 +10,11 @@ route.get("/api/isAuth", controller.isAuth);
 // ..............News Route...........
 
 route.get("/api/types", newsController.getNewsType);
+route.get("/api/getAllNewsCategories", newsController.getAllNewsCategories);
+route.get(
+  "/api/getsubcategories/:catName",
+  newsController.getAllNewsSubCategories
+);
 
 // ..............News Route...........
 
