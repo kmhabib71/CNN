@@ -1,5 +1,19 @@
-const { Type, Category } = require("../Model/model");
+const { Type, Category, Tag } = require("../Model/model");
 
+exports.getLastFiveLiveUpdateNewsType = async function (req, res) {
+  try {
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error. " });
+  }
+};
+exports.getTags = async function (req, res) {
+  try {
+    const allTags = await Tag.find();
+    res.json(allTags);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error. " });
+  }
+};
 exports.getNewsType = async function (req, res) {
   try {
     const allTypes = await Type.find();

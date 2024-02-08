@@ -17,6 +17,9 @@ function CreateNews() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileType, setFileType] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [liveUpdateTypes, setLiveUpdateTypes] = useState([]);
+  const [selectedLiveUpdateType, setSelectedLiveUpdateType] = useState("");
+  const [liveUpdateHeadline, setLiveUpdatetHeadline] = useState([]);
 
   const handleNewsTypeChange = (e) => {
     setSelectedType(e.target.value);
@@ -85,6 +88,9 @@ function CreateNews() {
         const typeResponse = await axios.get(`${backEndBaseUrl}/api/types`);
         setTypes(typeResponse.data);
 
+        const tagResponse = await axios.get(`${backEndBaseUrl}/api/tags`);
+        setNewsTag(tagResponse.data);
+
         const categoryResponse = await axios.get(
           `${backEndBaseUrl}/api/getAllNewsCategories`
         );
@@ -96,13 +102,28 @@ function CreateNews() {
           );
           setNewsSubCategory(subcategoryResponse.data);
         }
+
+        if (selectedType === "LiveUpdate") {
+          const liveUpdateResponse = await axios.get(
+            `${backEndBaseUrl}/api/getLastFiveLiveUpdateNewsType`
+          );
+          setLiveUpdateTypes(liveUpdateResponse.data);
+        }
+        if (selectedLiveUpdateType) {
+          const selectedLiveUpdateTypeResponse = await axios.get(
+            `${backEndBaseUrl}/api/getLastFiveLiveUpdateNewsType/${selectedLiveUpdateType}`
+          );
+          setLiveUpdatetHeadline(selectedLiveUpdateTypeResponse.data);
+        }
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-  }, [selectedNewsCategory]);
-
+  }, [selectedNewsCategory, selectedType, selectedLiveUpdateType]);
+  const handleLiveUpdateTypeChange = async (e) => {
+    setSelectedLiveUpdateType(e.target.value);
+  };
   const handleSubmit = async () => {};
   return (
     <div className="mt-28">
@@ -146,6 +167,116 @@ function CreateNews() {
                 ))}
               </select>
             </div>
+
+            {selectedType === "LiveUpdate" && (
+              <>
+                {liveUpdateTypes.length !== 0 ? (
+                  <div className=" bg-yellow-100 px-4 mb-10 rounded">
+                    <div className="flex justify-between py-5">
+                      <div className=" w-full">
+                        <label
+                          htmlFor="title"
+                          className="block text-sm font-medium text-gray-600">
+                          Live Update News Type
+                        </label>
+                        <input
+                          type="text"
+                          id="LiveUpdateType"
+                          name="LiveUpdateType"
+                          placeholder="eg: ukraine-russia-war"
+                          onChange={handleLiveUpdateTypeChange}
+                          className="mt-2 p-3 mr-2 bg-gray-200 focus:outline-none w-full border rounded-md"
+                          required
+                        />
+                      </div>
+                      <p className=" font-medium text-xs flex items-center mb-2 ml-2 text-gray-600">
+                        OR
+                      </p>
+                      <div className=" w-full">
+                        <label
+                          htmlFor="LiveUpdateType"
+                          className="block text-sm font-medium  ml-2.5 text-gray-600">
+                          Live Update News Type
+                        </label>
+                        <select
+                          id="LiveUpdateType"
+                          name="LiveUpdateType"
+                          value={selectedLiveUpdateType}
+                          onChange={handleLiveUpdateTypeChange}
+                          className="mt-2 p-[0.95rem] ml-2 bg-gray-200 focus:outline-none w-full border rounded-md">
+                          <option value="" disabled>
+                            Select Live News Type
+                          </option>
+                          {liveUpdateTypes.map((type) => (
+                            <option key={type} value={type}>
+                              {type}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="pb-5">
+                      <label
+                        htmlFor="title"
+                        className="block text-sm font-medium text-gray-600">
+                        Live Update Main Headline
+                      </label>
+                      <input
+                        type="text"
+                        id="LiveUpdateType"
+                        name="LiveUpdateType"
+                        value={liveUpdateHeadline}
+                        onChange={(e) => {
+                          setLiveUpdatetHeadline(e.target.value);
+                        }}
+                        placeholder="Live Update Main Headline"
+                        className="mt-2 p-3 bg-gray-200 focus:outline-none w-full border rounded-md"
+                        required
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div className=" bg-yellow-200 px-4 mb-10 rounded">
+                    <div className="py-5">
+                      <label
+                        htmlFor="title"
+                        className="block text-sm font-medium text-gray-600">
+                        Live Update News Type
+                      </label>
+                      <input
+                        type="text"
+                        id="LiveUpdateType"
+                        name="LiveUpdateType"
+                        placeholder="eg: ukraine-russia-war"
+                        onChange={handleLiveUpdateTypeChange}
+                        className="mt-2 p-3 bg-gray-200 focus:outline-none w-full border rounded-md"
+                        required
+                      />
+                    </div>
+                    <div className="pb-5">
+                      <label
+                        htmlFor="title"
+                        className="block text-sm font-medium text-gray-600">
+                        Live Update Main Headline
+                      </label>
+                      <input
+                        type="text"
+                        id="LiveUpdateType"
+                        name="LiveUpdateType"
+                        value={liveUpdateHeadline}
+                        onChange={(e) => {
+                          setLiveUpdatetHeadline(e.target.value);
+                        }}
+                        placeholder="Live Update Main Headline"
+                        className="mt-2 p-3 bg-gray-200 focus:outline-none w-full border rounded-md"
+                        required
+                      />
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
             <div className="mb-10">
               <label className="block text-sm text-gray-600">Upload File</label>
               <input
