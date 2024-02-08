@@ -56,7 +56,25 @@ const categorySchema = new mongoose.Schema({
 });
 const Category = mongoose.model("Category", categorySchema);
 
+const TagSchema = new mongoose.Schema({
+  name: { type: String },
+});
+const TypeSchema = new mongoose.Schema({
+  name: { type: String },
+});
+const RoleSchema = new mongoose.Schema({
+  name: { type: String },
+  description: { type: String },
+  permissions: { type: [String], default: [] },
+});
+const Tag = mongoose.model("Tag", TagSchema);
+const Type = mongoose.model("Type", TypeSchema);
+const Role = mongoose.model("Role", RoleSchema);
+
 module.exports = {
   User: User,
   Category: Category,
+  Tag: Tag,
+  Type: Type,
+  Role: Role,
 };
