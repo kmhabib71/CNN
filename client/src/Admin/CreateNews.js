@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Editor from "./TextEditor/TextEditorWithQuill";
+import axios from "axios";
 function CreateNews() {
   const [title, setTitle] = useState("");
   const [types, setTypes] = useState([]);
   const [NewsCategory, setNewsCategory] = useState([]);
   const [NewsSubCategory, setNewsSubCategory] = useState([]);
+  const [NewsTag, setNewsTag] = useState([]);
   const [selectedType, setSelectedType] = useState("");
   const [selectedNewsCategory, setSelectedNewsCategory] = useState("");
   const [selectedNewsSubCategory, setSelectedNewsSubCategory] = useState("");
+  const [selectedNewsTag, setSelectedNewsTag] = useState("");
   const [editorText, setEditorText] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [error, setError] = useState(null);
@@ -25,6 +28,10 @@ function CreateNews() {
   };
   const handleNewsSubCategoryChange = (e) => {
     setSelectedNewsSubCategory(e.target.value);
+    console.log(e.target.value);
+  };
+  const handleNewsTagChange = (e) => {
+    setSelectedNewsTag(e.target.value);
     console.log(e.target.value);
   };
   const maxFileSizeinBytes = 50 * 1024 * 1024;
@@ -69,6 +76,22 @@ function CreateNews() {
     setEditorText(content);
     console.log("Editor Content: ", content);
   };
+
+  const backEndBaseUrl = "http://localhost:8080";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const typeResponse = await axios.get(`${backEndBaseUrl}/api/types`);
+        setTypes(typeResponse.data);
+        console.log("typeResponse.data ", typeResponse.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   const handleSubmit = async () => {};
   return (
     <div className="mt-28">
@@ -192,6 +215,26 @@ function CreateNews() {
                 {NewsSubCategory.map((subcategory) => (
                   <option value={subcategory.name} key={subcategory._id}>
                     {subcategory.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="mb-10">
+              <label htmlFor="newsType" className="block text-sm text-gray-600">
+                News Tag
+              </label>
+              <select
+                id="NewsTag"
+                name="NewsTag"
+                value={selectedNewsTag}
+                onChange={handleNewsTagChange}
+                className="mt-2 p-3 bg-gray-200 focus:outline-none w-full border rounded-md">
+                <option value="" disabled>
+                  Select News Tag
+                </option>
+                {NewsTag.map((NewsTag) => (
+                  <option value={NewsTag.name} key={NewsTag._id}>
+                    {NewsTag.name}
                   </option>
                 ))}
               </select>
