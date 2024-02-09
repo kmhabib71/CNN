@@ -124,7 +124,47 @@ function CreateNews() {
   const handleLiveUpdateTypeChange = async (e) => {
     setSelectedLiveUpdateType(e.target.value);
   };
-  const handleSubmit = async () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const newsData = new FormData();
+
+    newsData.append("title", title);
+    newsData.append("type", selectedType);
+    newsData.append("liveUpdateType", selectedLiveUpdateType);
+    newsData.append("liveUpdateHeadlinie", liveUpdateHeadline);
+    newsData.append("file", selectedFile);
+    newsData.append("newsCategory", selectedNewsCategory);
+    newsData.append("subCategory", selectedNewsSubCategory);
+    newsData.append("tag", selectedNewsTag);
+    newsData.append("editorText", editorText);
+    newsData.append("authorName", authorName);
+    console.log("title", title);
+    console.log("type", selectedType);
+    console.log("liveUpdateType", selectedLiveUpdateType);
+    console.log("liveUpdateHeadlinie", liveUpdateHeadline);
+    console.log("file", selectedFile);
+    console.log("newsCategory", selectedNewsCategory);
+    console.log("subCategory", selectedNewsSubCategory);
+    console.log("tag", selectedNewsTag);
+    console.log("editorText", editorText);
+    console.log("authorName", authorName);
+
+    try {
+      const response = await axios.post(
+        `${backEndBaseUrl}/api/createnews`,
+        newsData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      alert(response.data);
+    } catch (error) {
+      console.error("Error sending data", error);
+    }
+  };
   return (
     <div className="mt-28">
       <div className="mx-auto bg-white drop-shadow-md w-10/12 rounded">
@@ -393,6 +433,14 @@ function CreateNews() {
                 onChange={(e) => setAuthorName(e.target.value)}
                 className="mt-2 p-3 bg-gray-200 focus:outline-none w-full border rounded-md"
               />
+            </div>
+            <div className="mb-10 mt-4">
+              <button
+                type="submit"
+                onClick={handleSubmit}
+                className="bg-gray-900 w-full text-white p-2  rounded-md hover:bg-blue-600">
+                Submit
+              </button>
             </div>
           </form>
         </div>
