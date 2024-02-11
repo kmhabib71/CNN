@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -67,6 +68,48 @@ const RoleSchema = new mongoose.Schema({
   description: { type: String },
   permissions: { type: [String], default: [] },
 });
+
+const NewsSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    file: {
+      type: String,
+    },
+    newsCategory: {
+      type: String,
+    },
+    subCategory: {
+      type: String,
+    },
+    type: {
+      type: String,
+    },
+    tag: {
+      type: String,
+    },
+    editorText: {
+      type: String,
+    },
+    authorName: {
+      type: String,
+    },
+    isLiveUpdate: {
+      type: String,
+    },
+    liveUpdateType: {
+      type: String,
+    },
+    liveUpdateHeadline: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
+NewsSchema.plugin(mongoosePaginate);
+const News = mongoose.model("News", NewsSchema);
 const Tag = mongoose.model("Tag", TagSchema);
 const Type = mongoose.model("Type", TypeSchema);
 const Role = mongoose.model("Role", RoleSchema);
@@ -77,4 +120,5 @@ module.exports = {
   Tag: Tag,
   Type: Type,
   Role: Role,
+  News: News,
 };

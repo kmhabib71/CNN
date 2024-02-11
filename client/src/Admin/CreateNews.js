@@ -20,6 +20,7 @@ function CreateNews() {
   const [liveUpdateTypes, setLiveUpdateTypes] = useState([]);
   const [selectedLiveUpdateType, setSelectedLiveUpdateType] = useState("");
   const [liveUpdateHeadline, setLiveUpdatetHeadline] = useState([]);
+  const [isLiveUpdateType, setIsLiveUpdateType] = useState(false);
 
   const handleNewsTypeChange = (e) => {
     setSelectedType(e.target.value);
@@ -42,6 +43,7 @@ function CreateNews() {
     "image/jpeg",
     "image/JPG",
     "image/png",
+    "image/webp",
     "image/gif",
     "video/mp4",
     "video/webm",
@@ -104,10 +106,13 @@ function CreateNews() {
         }
 
         if (selectedType === "LiveUpdate") {
+          setIsLiveUpdateType(true);
           const liveUpdateResponse = await axios.get(
             `${backEndBaseUrl}/api/getLastFiveLiveUpdateNewsType`
           );
           setLiveUpdateTypes(liveUpdateResponse.data);
+        } else {
+          setIsLiveUpdateType(false);
         }
         if (selectedLiveUpdateType) {
           const selectedLiveUpdateTypeResponse = await axios.get(
@@ -131,6 +136,7 @@ function CreateNews() {
 
     newsData.append("title", title);
     newsData.append("type", selectedType);
+    newsData.append("isLiveUpdate", isLiveUpdateType);
     newsData.append("liveUpdateType", selectedLiveUpdateType);
     newsData.append("liveUpdateHeadlinie", liveUpdateHeadline);
     newsData.append("file", selectedFile);
@@ -161,6 +167,8 @@ function CreateNews() {
         }
       );
       alert(response.data);
+
+      window.location.reload();
     } catch (error) {
       console.error("Error sending data", error);
     }

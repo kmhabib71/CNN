@@ -25,6 +25,7 @@ route.get(
   "/api/getsubcategories/:catName",
   newsController.getAllNewsSubCategories
 );
+route.get("/newsList", newsController.newsList);
 
 // ..............News Route...........
 

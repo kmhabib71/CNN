@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Header from "./Header";
 import CreateNews from "./CreateNews";
+import NewsList from "./NewsList";
 
 function Admin() {
   axios
@@ -33,6 +34,7 @@ function Admin() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/news-management/create" element={<CreateNews />} />
+            <Route path="/news-management/NewsList" element={<NewsList />} />
           </Routes>
         </div>
       </div>

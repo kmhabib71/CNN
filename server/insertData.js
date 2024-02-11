@@ -67,3 +67,4 @@ async function insertData() {
 
 // Call the function to insert data
 insertData();
+// server.js (or your backend entry point)
