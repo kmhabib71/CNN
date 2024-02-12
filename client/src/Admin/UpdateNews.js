@@ -110,7 +110,7 @@ function UpdateNews() {
 
   // Create a state for the file data
   const [file, setFile] = useState(null);
-  const IMAGE_TYPES = ["jpeg", "jpg", "gif", "png"];
+  const IMAGE_TYPES = ["jpeg", "jpg", "gif", "png", "webp"];
   const VIDEO_TYPES = ["mp4", "webm", "ogg"];
   function getFileType(fileString) {
     // Extract the file name from the URL

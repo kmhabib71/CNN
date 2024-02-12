@@ -28,6 +28,32 @@ route.get(
 route.get("/newsList", newsController.newsList);
 
 route.delete("/api/news/:id", newsController.deleteNews);
+route.get("/getNewsByID/:id", newsController.getNewsById);
+route.post("/api/updatenews", upload.single("file"), newsController.updateNews);
+route.get(
+  "/filesForNewsByFilename/:filename",
+  newsController.filesForNewsByFilename
+);
+route.get(
+  "/api/AllCategoriesWithSubCategory",
+  newsController.AllCategoriesWithSubCategory
+);
+route.delete(
+  "/api/deleteCategories/:categoryId",
+  newsController.deleteCategory
+);
+route.delete(
+  "/api/categories/:categoryId/subcategories/:subcategoryId",
+  newsController.deleteSubcategory
+);
+route.post("/api/addCategories", newsController.addCategory);
+route.post("/api/addTag", newsController.addTag);
+
+route.delete("/api/deleteTag/:tagId", newsController.deleteTag);
+route.get("/api/users", newsController.users);
+route.get("/api/getRoles", newsController.getRoles);
+route.post("/api/assignRole/:userId", newsController.assignRole);
+
 // ..............News Route...........
 
 module.exports = route;

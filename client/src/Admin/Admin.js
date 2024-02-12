@@ -7,6 +7,9 @@ import Header from "./Header";
 import CreateNews from "./CreateNews";
 import NewsList from "./NewsList";
 import UpdateNews from "./UpdateNews";
+import ManageCategories from "./ManageCategories";
+import ManageTag from "./ManageTags";
+import ManageRole from "./ManageRole";
 
 function Admin() {
   axios
@@ -36,6 +39,15 @@ function Admin() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/news-management/create" element={<CreateNews />} />
             <Route path="/news-management/NewsList" element={<NewsList />} />
+            <Route
+              path="/news-management/manage-categories"
+              element={<ManageCategories />}
+            />
+            <Route path="/news-management/manage-tag" element={<ManageTag />} />
+            <Route
+              path="/user-management/manage-role"
+              element={<ManageRole />}
+            />
             <Route
               path="/news-management/update/:id"
               element={<UpdateNews />}
