@@ -6,6 +6,26 @@ const client = new mongodb.MongoClient(
   "mongodb+srv://mohammedsaimuae:Flower71@cluster0.rbmepuu.mongodb.net/CNN?retryWrites=true&w=majority"
 );
 
+exports.deleteUsersManually = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    // Check if the user exists
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Delete the user
+    await User.findByIdAndDelete(userId);
+
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting user:", error.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 exports.assignRole = async function (req, res) {
   const { userId } = req.params;
   const { role } = req.body;

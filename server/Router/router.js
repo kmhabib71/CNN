@@ -53,7 +53,10 @@ route.delete("/api/deleteTag/:tagId", newsController.deleteTag);
 route.get("/api/users", newsController.users);
 route.get("/api/getRoles", newsController.getRoles);
 route.post("/api/assignRole/:userId", newsController.assignRole);
-
+route.delete(
+  "/api/deleteUsersManually/:id",
+  newsController.deleteUsersManually
+);
 // ..............News Route...........
 
 module.exports = route;

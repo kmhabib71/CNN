@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import NewsTable from "./NewsListComponents/NewsTable";
-import Pagination from "./NewsListComponents/Pagination";
+import NewsTable from "./Components/NewsListComponents/NewsTable";
+import Pagination from "./Components/NewsListComponents/Pagination";
 
 function NewsList() {
   const [newsData, setNewsData] = useState([]);

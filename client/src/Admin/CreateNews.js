@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Editor from "./TextEditor/TextEditorWithQuill";
+import Editor from "./Components/TextEditor/TextEditorWithQuill";
 import axios from "axios";
 function CreateNews() {
   const [title, setTitle] = useState("");

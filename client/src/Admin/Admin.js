@@ -10,6 +10,7 @@ import UpdateNews from "./UpdateNews";
 import ManageCategories from "./ManageCategories";
 import ManageTag from "./ManageTags";
 import ManageRole from "./ManageRole";
+import ManageUser from "./ManageUser";
 
 function Admin() {
   axios
@@ -47,6 +48,10 @@ function Admin() {
             <Route
               path="/user-management/manage-role"
               element={<ManageRole />}
+            />
+            <Route
+              path="/user-management/manage-user"
+              element={<ManageUser />}
             />
             <Route
               path="/news-management/update/:id"
