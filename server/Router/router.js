@@ -27,6 +27,7 @@ route.get(
 );
 route.get("/newsList", newsController.newsList);
 
+route.delete("/api/news/:id", newsController.deleteNews);
 // ..............News Route...........
 
 module.exports = route;

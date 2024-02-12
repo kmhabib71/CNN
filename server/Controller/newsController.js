@@ -5,7 +5,17 @@ const uuid = require("uuid");
 const client = new mongodb.MongoClient(
   "mongodb+srv://mohammedsaimuae:Flower71@cluster0.rbmepuu.mongodb.net/CNN?retryWrites=true&w=majority"
 );
-
+exports.deleteNews = async function (req, res) {
+  try {
+    const newsId = req.params.id;
+    // Implement the logic to delete the news item from the database
+    await News.findByIdAndDelete(newsId);
+    res.json({ message: "News deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting news:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 exports.newsList = async function (req, res) {
   try {
     const page = parseInt(req.query.page) || 1;

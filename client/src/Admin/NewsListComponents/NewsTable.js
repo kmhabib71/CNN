@@ -14,7 +14,7 @@ const NewsTable = ({ data, setData, onPageChange }) => {
       item.title && item.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const pageCount = Math.ceil(filteredData.length / itemsPerPage);
+  //   const pageCount = Math.ceil(filteredData.length / itemsPerPage);
 
   const handlePageChange = ({ selected }) => {
     onPageChange({ selected }); // Pass the page change event to the parent
@@ -24,6 +24,17 @@ const NewsTable = ({ data, setData, onPageChange }) => {
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
   );
+
+  //   const filteredData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+  //   const currentPage = 1; // Assuming the current page is 1 (0-indexed)
+  //   const itemsPerPage = 10;
+
+  // const paginatedData = filteredData.slice(
+  //     currentPage * itemsPerPage, // currentPage * itemsPerPage = 1 * 10 = 10
+  //     (currentPage + 1) * itemsPerPage // (currentPage + 1) * itemsPerPage = (1 + 1) * 10 = 20
+  // );
+
+  // [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
   const handleDelete = (id) => {
     setDeletedItemId(id);

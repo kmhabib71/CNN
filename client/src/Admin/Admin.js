@@ -6,6 +6,7 @@ import Dashboard from "./Dashboard";
 import Header from "./Header";
 import CreateNews from "./CreateNews";
 import NewsList from "./NewsList";
+import UpdateNews from "./UpdateNews";
 
 function Admin() {
   axios
@@ -35,6 +36,10 @@ function Admin() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/news-management/create" element={<CreateNews />} />
             <Route path="/news-management/NewsList" element={<NewsList />} />
+            <Route
+              path="/news-management/update/:id"
+              element={<UpdateNews />}
+            />
           </Routes>
         </div>
       </div>
