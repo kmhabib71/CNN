@@ -57,6 +57,10 @@ route.delete(
   "/api/deleteUsersManually/:id",
   newsController.deleteUsersManually
 );
+route.get("/api/user/:userid", newsController.getUserbyID);
+route.get("/api/isAuth", controller.isAuth);
+
+route.post("/api/updateUserData/:userid", newsController.updateUserData);
 // ..............News Route...........
 
 module.exports = route;

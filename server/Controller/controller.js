@@ -1,10 +1,35 @@
 const { User } = require("../Model/model");
 const bcrypt = require("bcrypt");
 
-exports.isAuth = async function (req, res) {
+exports.isAuth = async (req, res) => {
+  // console.log("Middleware is running");
+  // console.log("Session is", req.session);
+  // console.log("User userrole:", req.session.userrole);
+  // console.log("Middleware is running");
+  // console.log("Session is", req.session);
+  // console.log("User userrole:", req.session.userrole);
+  // Later change userRole and userId for dinamic get
+  const userRole = req.session.userRole;
+  // const userRole = "Admin";
   const userid = req.session.userid;
-  console.log("session from isAuth :", req.session);
-  res.status(200).json({ userid: userid });
+  // const userid = "659a832725988cb6842f2b8a";
+
+  // check if the user role is equal to Admin, Editor or Writer
+  if (userRole === "Admin") {
+    // do something for Admin users
+    res.status(200).json({ Role: userRole, userid: userid });
+  } else if (userRole === "Editor") {
+    // do something for Editor users
+    res.status(200).json({ Role: userRole, userid: userid });
+  } else if (userRole === "Writer") {
+    // do something for Writer users
+    res.status(200).json({ Role: userRole, userid: userid });
+  } else {
+    // do something for other users
+    res.status(200).json({ Role: false });
+  }
+
+  // Send userRole as part of the response
 };
 
 exports.login = async function (req, res) {

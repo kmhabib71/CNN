@@ -1,10 +1,90 @@
 const { Type, Category, Tag, News, User, Role } = require("../Model/model");
 const mongodb = require("mongodb");
 const uuid = require("uuid");
-
+const bcrypt = require("bcrypt");
 const client = new mongodb.MongoClient(
   "mongodb+srv://mohammedsaimuae:Flower71@cluster0.rbmepuu.mongodb.net/CNN?retryWrites=true&w=majority"
 );
+
+exports.updateUserData = async (req, res) => {
+  const userId = req.params.userid;
+  const { username, phone, email, password, confirmPassword, bio, role } =
+    req.body;
+  console.log("udate with userdata is: ", req.body);
+  try {
+    // Find the user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Update username if provided
+    if (username !== undefined) {
+      user.username = username;
+    }
+
+    // Update phone if provided
+    if (phone !== undefined) {
+      user.phone = phone;
+    }
+
+    // Update email if provided
+    if (email !== undefined) {
+      user.email = email;
+    }
+
+    // Update bio if provided
+    if (bio !== undefined) {
+      user.bio = bio;
+    }
+
+    // Update role if provided
+    if (role !== undefined) {
+      user.role = role;
+    }
+
+    // Update password if provided and matches confirmPassword
+    if (password !== undefined && password === confirmPassword) {
+      // Hash the new password
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
+    }
+
+    // Save the updated user document
+    await user.save();
+
+    // Respond with success message or updated user data
+    res
+      .status(200)
+      .json({ message: "User updated successfully", user: user.toObject() });
+  } catch (error) {
+    console.error("Error updating user:", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.getUserbyID = async (req, res) => {
+  const userId = req.params.userid;
+  console.log("userID for user is:", userId);
+  try {
+    // Find a user by the provided user ID
+    const user = await User.findOne({ _id: userId });
+
+    if (!user) {
+      // Handle the case where the user is not found
+      console.log("User not found");
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Return the user data
+    return res.json(user);
+  } catch (error) {
+    // Handle errors
+    console.error("Error fetching user data:", error.message);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 
 exports.deleteUsersManually = async (req, res) => {
   try {
