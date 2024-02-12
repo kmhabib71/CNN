@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "./Dashboard";
@@ -12,8 +12,15 @@ import ManageTag from "./ManageTags";
 import ManageRole from "./ManageRole";
 import ManageUser from "./ManageUser";
 import Settings from "./Settings";
+import SupportForm from "./Support";
 
 function Admin() {
+  const [USERID, setuserid] = useState("");
+  const [role, setRole] = useState(() => {
+    // Retrieve the user role from localStorage when the component mounts
+    return localStorage.getItem("userRole") || "";
+  });
+
   axios
     .get("http://localhost:8080/api/isAuth", {
       headers: {
@@ -23,6 +30,18 @@ function Admin() {
     })
     .then((response) => {
       console.log("response is: ", response.data.userid);
+
+      // print the Role property of the response data
+      console.log("response.data :", response.data);
+      if (response.data.Role) {
+        setuserid(response.data.userid);
+        setRole(response.data.Role);
+
+        // Save the user role to localStorage
+        localStorage.setItem("userRole", response.data.Role);
+      } else {
+        window.location.href = "/";
+      }
     })
     .catch((error) => {
       console.log(error);
@@ -55,6 +74,7 @@ function Admin() {
               element={<ManageUser />}
             />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/help" element={<SupportForm userRole={role} />} />
             <Route
               path="/news-management/update/:id"
               element={<UpdateNews />}

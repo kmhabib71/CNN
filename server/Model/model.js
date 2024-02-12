@@ -109,6 +109,30 @@ const NewsSchema = new mongoose.Schema(
   { timestamps: true }
 );
 NewsSchema.plugin(mongoosePaginate);
+
+const supportFormSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    subject: {
+      type: String,
+      required: true,
+    },
+    message: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+const SupportForm = mongoose.model("SupportForm", supportFormSchema);
 const News = mongoose.model("News", NewsSchema);
 const Tag = mongoose.model("Tag", TagSchema);
 const Type = mongoose.model("Type", TypeSchema);
@@ -121,4 +145,5 @@ module.exports = {
   Type: Type,
   Role: Role,
   News: News,
+  SupportForm: SupportForm,
 };

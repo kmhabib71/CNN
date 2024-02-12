@@ -61,6 +61,8 @@ route.get("/api/user/:userid", newsController.getUserbyID);
 route.get("/api/isAuth", controller.isAuth);
 
 route.post("/api/updateUserData/:userid", newsController.updateUserData);
+route.get("/api/support", newsController.getSupportForm);
+route.post("/api/support", newsController.supportForm);
 // ..............News Route...........
 
 module.exports = route;

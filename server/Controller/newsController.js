@@ -1,4 +1,12 @@
-const { Type, Category, Tag, News, User, Role } = require("../Model/model");
+const {
+  Type,
+  Category,
+  Tag,
+  News,
+  User,
+  Role,
+  SupportForm,
+} = require("../Model/model");
 const mongodb = require("mongodb");
 const uuid = require("uuid");
 const bcrypt = require("bcrypt");
@@ -6,6 +14,43 @@ const client = new mongodb.MongoClient(
   "mongodb+srv://mohammedsaimuae:Flower71@cluster0.rbmepuu.mongodb.net/CNN?retryWrites=true&w=majority"
 );
 
+exports.supportForm = async (req, res) => {
+  const { name, email, subject, message } = req.body;
+
+  try {
+    // Create a new support submission document
+    const supportSubmission = new SupportForm({
+      name,
+      email,
+      subject,
+      message,
+    });
+
+    // Save the document to the database
+    await supportSubmission.save();
+
+    console.log(
+      "Support form submission saved to the database:",
+      supportSubmission
+    );
+
+    res.status(200).json({ message: "Form submitted successfully" });
+  } catch (error) {
+    console.error("Error saving support form submission:", error);
+    console.error("Error saving support form submission:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+exports.getSupportForm = async (req, res) => {
+  try {
+    // Fetch all support details from the database
+    const supportDetails = await SupportForm.find().sort({ timestamp: -1 });
+    res.status(200).json(supportDetails);
+  } catch (error) {
+    console.error("Error fetching support details:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
 exports.updateUserData = async (req, res) => {
   const userId = req.params.userid;
   const { username, phone, email, password, confirmPassword, bio, role } =
