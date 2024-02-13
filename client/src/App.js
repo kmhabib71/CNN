@@ -5,6 +5,7 @@ import Article from "./Article/Article";
 import Register from "./AuthPages/Register";
 import Login from "./AuthPages/Login";
 import Admin from "./Admin/Admin";
+import Search from "./Search/Search";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/article" element={<Article />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/search/:searchText" element={<Search />} />
           <Route path="/Admin/*" element={<Admin />} />
         </Routes>
       </Router>
