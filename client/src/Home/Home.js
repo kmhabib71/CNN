@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../Commmon/Header/Header";
 import Firstsection from "./Firstsection";
 import SecondSection from "./SecondSection";
@@ -14,20 +14,29 @@ import EleventhSection from "./EleventhSection";
 import Footer from "../Commmon/Footer/Footer";
 
 function Home() {
+  const [showFooterSearch, setShowFooterSearch] = useState(false);
+  const onSearchButtonClick = () => {
+    setShowFooterSearch(!showFooterSearch);
+  };
+
   return (
     <>
-      <Header />
-      <Firstsection />
-      <SecondSection />
-      <ThirdAdv />
-      <FourthSection />
-      <FifthSection />
-      <SixthSection />
-      <SeventhSection />
-      <EighthSection />
-      <NinthSection />
-      <TenthSection />
-      <EleventhSection />
+      <Header onSearchButtonClick={onSearchButtonClick} />
+      {!showFooterSearch && (
+        <>
+          <Firstsection />
+          <SecondSection />
+          <ThirdAdv />
+          <FourthSection />
+          <FifthSection />
+          <SixthSection />
+          <SeventhSection />
+          <EighthSection />
+          <NinthSection />
+          <TenthSection />
+          <EleventhSection />
+        </>
+      )}
       <Footer />
     </>
   );

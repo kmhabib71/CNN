@@ -1,25 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-function Nav() {
+function Nav({ onSearchButtonClick }) {
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
+  };
   return (
     <>
       <nav className="flex bg-black">
         <div className="flex basis-3/4 justify-evenly items-center mr-4">
-          <div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6 text-white text-[0.937rem] font-bold">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-              />
-            </svg>
+          <div
+            onClick={() => {
+              toggleMenu();
+              onSearchButtonClick();
+            }}
+            className="text-white focus:outline-none cursor-pointer ">
+            {isMenuOpen ? (
+              // Close icon (X)
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              // Hamburger icon
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6 text-white text-[0.937rem] font-bold">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+            )}
           </div>
           <div className="flex justify-center">
             <img src="/images/Header/logo.png" alt="" className="h-10" />
@@ -84,7 +111,7 @@ function Nav() {
             className="text-white text-[0.937rem] font-bold">
             Live TV
           </NavLink>
-          <div>
+          <div className=" cursor-pointer" onClick={onSearchButtonClick}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
