@@ -29,7 +29,7 @@ function Admin() {
       withCredentials: true,
     })
     .then((response) => {
-      console.log("response is: ", response.data.userid);
+      console.log("response is: ", response);
 
       // print the Role property of the response data
       console.log("response.data :", response.data);

@@ -5,27 +5,27 @@ function TenthSection() {
   const midCards = [
     {
       link: "/your-link-url",
-      imageSrc: "images/TenthSection/11.webp",
+      imageSrc: "http://localhost:3000/images/TenthSection/11.webp",
       text: "Windows Users Didn't Know This Simple Trick To Block All Ads (Do It Now)",
       horizontal: true,
     },
     {
       link: "/your-link-url",
-      imageSrc: "images/TenthSection/21.webp",
+      imageSrc: "http://localhost:3000/images/TenthSection/21.webp",
       text: "Castle-Sized Cabin on Lake Tahoe Asks Nearly $50 Million—Glass Funiculars Included",
       tag: "",
       horizontal: true,
     },
     {
       link: "/your-link-url",
-      imageSrc: "images/TenthSection/31.webp",
+      imageSrc: "http://localhost:3000/images/TenthSection/31.webp",
       text: "What Happens When Kamala Harris Lives in Your Condo Complex",
       tag: "",
       horizontal: true,
     },
     {
       link: "/your-link-url",
-      imageSrc: "images/TenthSection/41.webp",
+      imageSrc: "http://localhost:3000/images/TenthSection/41.webp",
       text: "Incredible News: The Pain-Relieving Product that Changes Lives!",
       tag: "",
       horizontal: true,

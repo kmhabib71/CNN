@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Editor from "./Components/TextEditor/TextEditorWithQuill";
 import axios from "axios";
+import socket from "../Helpers/Socket";
 function CreateNews() {
   const [title, setTitle] = useState("");
   const [types, setTypes] = useState([]);
@@ -98,13 +99,6 @@ function CreateNews() {
         );
         setNewsCategory(categoryResponse.data);
 
-        if (selectedNewsCategory) {
-          const subcategoryResponse = await axios.get(
-            `${backEndBaseUrl}/api/getsubcategories/${selectedNewsCategory}`
-          );
-          setNewsSubCategory(subcategoryResponse.data);
-        }
-
         if (selectedType === "LiveUpdate") {
           setIsLiveUpdateType(true);
           const liveUpdateResponse = await axios.get(
@@ -125,7 +119,23 @@ function CreateNews() {
       }
     };
     fetchData();
-  }, [selectedNewsCategory, selectedType, selectedLiveUpdateType]);
+  }, [selectedType, selectedLiveUpdateType]);
+  useEffect(() => {
+    const fetchSubcategories = async () => {
+      try {
+        if (selectedNewsCategory) {
+          const subcategoryResponse = await axios.get(
+            `${backEndBaseUrl}/api/getsubcategories/${selectedNewsCategory}`
+          );
+          setNewsSubCategory(subcategoryResponse.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchSubcategories();
+  }, [selectedNewsCategory]);
   const handleLiveUpdateTypeChange = async (e) => {
     setSelectedLiveUpdateType(e.target.value);
   };
@@ -166,6 +176,7 @@ function CreateNews() {
           },
         }
       );
+      socket.emit("liveUpdate", true);
       alert(response.data);
 
       window.location.reload();

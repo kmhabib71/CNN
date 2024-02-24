@@ -7,6 +7,8 @@ const session = require("express-session");
 dotenv.config({ path: "config.env" });
 const { connectDB } = require("./Database/connection");
 const PORT = process.env.PORT || 8080;
+
+const socketIO = require("socket.io");
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -30,4 +32,19 @@ connectDB();
 app.use("/", require("./Router/router"));
 const server = app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+const io = socketIO(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    method: ["GET", "POST"],
+    credentials: true,
+  },
+});
+
+io.on("connection", async (socket) => {
+  socket.on("liveUpdate", async (data) => {
+    console.log("Live News Received");
+    io.emit("liveNewsUpdate", data);
+  });
 });

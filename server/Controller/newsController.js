@@ -285,7 +285,7 @@ exports.filesForNewsByFilename = async function (req, res) {
           // Now 'data' contains the binary data of the file
           console.log("data is :", data);
           // Send the file data in the response
-          res.send(data);
+          res.status(200).send(data);
         });
       } else {
         console.log("File not found");
