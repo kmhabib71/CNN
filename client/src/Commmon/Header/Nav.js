@@ -52,62 +52,70 @@ function Nav({ onSearchButtonClick }) {
             <img src="/images/Header/logo.png" alt="" className="h-10" />
           </div>
 
-          <NavLink to="/US" className="text-white text-[0.937rem] font-bold">
+          <NavLink
+            to="/category/US"
+            className="text-white text-[0.937rem] font-bold">
             US
           </NavLink>
-          <NavLink to="/World" className="text-white text-[0.937rem] font-bold">
+          <NavLink
+            to="/category/World"
+            className="text-white text-[0.937rem] font-bold">
             World
           </NavLink>
           <NavLink
-            to="/Politics"
+            to="/category/Politics"
             className="text-white text-[0.937rem] font-bold">
             Politics
           </NavLink>
           <NavLink
-            to="/Business"
+            to="/category/Business"
             className="text-white text-[0.937rem] font-bold">
             Business
           </NavLink>
           <NavLink
-            to="/Opinion"
+            to="/category/Opinion"
             className="text-white text-[0.937rem] font-bold">
             Opinion
           </NavLink>
           <NavLink
-            to="/Health"
+            to="/category/Health"
             className="text-white text-[0.937rem] font-bold">
             Health
           </NavLink>
           <NavLink
-            to="/Entertainment"
+            to="/category/Entertainment"
             className="text-white text-[0.937rem] font-bold">
             Entertainment
           </NavLink>
-          <NavLink to="/Style" className="text-white text-[0.937rem] font-bold">
+          <NavLink
+            to="/category/Style"
+            className="text-white text-[0.937rem] font-bold">
             Style
           </NavLink>
           <NavLink
-            to="/Travel"
+            to="/category/Travel"
             className="text-white text-[0.937rem] font-bold">
             Travel
           </NavLink>
           <NavLink
-            to="/Sports"
+            to="/category/Sports"
             className="text-white text-[0.937rem] font-bold">
             Sports
           </NavLink>
         </div>
         <div className="flex basis-1/4 justify-evenly items-center ">
-          <NavLink to="/Watch" className="text-white text-[0.937rem] font-bold">
+          <NavLink
+            to="/category/Watch"
+            className="text-white text-[0.937rem] font-bold">
             Watch
           </NavLink>
           <NavLink
-            to="/Listen"
+            to="/category/Listen"
             className="text-white text-[0.937rem] font-bold">
             Listen
           </NavLink>
           <NavLink
-            to="/live-tv"
+            to="/category/live-tv"
             className="text-white text-[0.937rem] font-bold">
             Live TV
           </NavLink>

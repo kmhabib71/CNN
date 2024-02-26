@@ -297,227 +297,310 @@ function UpdateNews() {
   };
   return (
     <>
-      <div className="container mx-auto mt-28 bg-white drop-shadow-md ml-8 w-11/12 rounded ">
-        <h4 className="font-bold text-xl  mb-10">Update News Article</h4>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-10">
-            <label
-              htmlFor="NewsType"
-              className="block text-sm font-bold text-gray-700">
-              News Type
-            </label>
-            <select
-              id="NewsType"
-              name="NewsType"
-              value={selectedType}
-              onChange={handleNewstypeChange}
-              className="mt-1 p-2 w-full  border border-gray-300 rounded-md">
-              <option value="" disabled>
-                Select News Type
-              </option>
-              {types.map((types) => (
-                <option key={types._id} value={types.name}>
-                  {types.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-10">
-            <label
-              htmlFor="title"
-              className="block text-sm font-bold text-gray-700">
-              Title
-            </label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-
-          <div className="mb-10">
-            <label
-              htmlFor="file"
-              className="block text-sm font-bold text-gray-700">
-              Upload File
-            </label>
-            <input
-              type="file"
-              id="file"
-              name="file"
-              onChange={handleFileChange}
-              className="sr-only"
-              accept="image/*,video/*"
-              required
-            />
-            <label
-              htmlFor="file"
-              className="mt-1 p-2 w-full cursor-pointer border border-gray-300 rounded-md flex items-center justify-center bg-gray-900 text-white hover:bg-blue-600">
-              Select Image or Video
-            </label>
-
-            {error && <p className="text-red-500">{error}</p>}
-
-            {selectedFile && (
-              <div className="mt-2">
-                <p className="text-sm text-gray-500">
-                  Selected File: {selectedFile.name}
-                </p>
-                <p className="text-sm text-gray-500">File Type: {fileType}</p>
+      <div className="mt-28">
+        <div className="mx-auto bg-white drop-shadow-md w-10/12 rounded">
+          <h3 className="p-6 font-bold mb-8 text-black border-b">
+            {" "}
+            Write News Article
+          </h3>
+          <div className="container p-5">
+            <form onSubmit={handleDataSubmit}>
+              <div className="mb-10">
+                <label htmlFor="title" className="block text-sm  text-gray-600">
+                  Title
+                </label>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className="mt-2 p-3 bg-gray-200 focus:outline-none w-full border rounded-md"
+                />
               </div>
-            )}
+              <div className="mb-10">
+                <label
+                  htmlFor="newsType"
+                  className="block text-sm text-gray-600">
+                  News Type
+                </label>
+                <select
+                  id="NewsType"
+                  name="NewsType"
+                  value={selectedType}
+                  onChange={handleNewstypeChange}
+                  className="mt-2 p-3 bg-gray-200 focus:outline-none w-full border rounded-md">
+                  <option value="" disabled>
+                    Select News Type
+                  </option>
+                  {types.map((types) => (
+                    <option value={types.name} key={types._id}>
+                      {types.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            {previewUrl && (
-              <div className="mt-2">
-                {fileType === "image" && (
-                  <img
-                    src={previewUrl}
-                    alt="Preview"
-                    className="max-w-full h-96"
-                  />
+              {/* {selectedType === "LiveUpdate" && (
+              <>
+                {liveUpdateTypes.length !== 0 ? (
+                  <div className=" bg-yellow-100 px-4 mb-10 rounded">
+                    <div className="flex justify-between py-5">
+                      <div className=" w-full">
+                        <label
+                          htmlFor="title"
+                          className="block text-sm font-medium text-gray-600">
+                          Live Update News Type
+                        </label>
+                        <input
+                          type="text"
+                          id="LiveUpdateType"
+                          name="LiveUpdateType"
+                          placeholder="eg: ukraine-russia-war"
+                          onChange={handleLiveUpdateTypeChange}
+                          className="mt-2 p-3 mr-2 bg-gray-200 focus:outline-none w-full border rounded-md"
+                          required
+                        />
+                      </div>
+                      <p className=" font-medium text-xs flex items-center mb-2 ml-2 text-gray-600">
+                        OR
+                      </p>
+                      <div className=" w-full">
+                        <label
+                          htmlFor="LiveUpdateType"
+                          className="block text-sm font-medium  ml-2.5 text-gray-600">
+                          Live Update News Type
+                        </label>
+                        <select
+                          id="LiveUpdateType"
+                          name="LiveUpdateType"
+                          value={selectedLiveUpdateType}
+                          onChange={handleLiveUpdateTypeChange}
+                          className="mt-2 p-[0.95rem] ml-2 bg-gray-200 focus:outline-none w-full border rounded-md">
+                          <option value="" disabled>
+                            Select Live News Type
+                          </option>
+                          {liveUpdateTypes.map((type) => (
+                            <option key={type} value={type}>
+                              {type}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="pb-5">
+                      <label
+                        htmlFor="title"
+                        className="block text-sm font-medium text-gray-600">
+                        Live Update Main Headline
+                      </label>
+                      <input
+                        type="text"
+                        id="LiveUpdateType"
+                        name="LiveUpdateType"
+                        value={liveUpdateHeadline}
+                        onChange={(e) => {
+                          setLiveUpdatetHeadline(e.target.value);
+                        }}
+                        placeholder="Live Update Main Headline"
+                        className="mt-2 p-3 bg-gray-200 focus:outline-none w-full border rounded-md"
+                        required
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div className=" bg-yellow-200 px-4 mb-10 rounded">
+                    <div className="py-5">
+                      <label
+                        htmlFor="title"
+                        className="block text-sm font-medium text-gray-600">
+                        Live Update News Type
+                      </label>
+                      <input
+                        type="text"
+                        id="LiveUpdateType"
+                        name="LiveUpdateType"
+                        placeholder="eg: ukraine-russia-war"
+                        onChange={handleLiveUpdateTypeChange}
+                        className="mt-2 p-3 bg-gray-200 focus:outline-none w-full border rounded-md"
+                        required
+                      />
+                    </div>
+                    <div className="pb-5">
+                      <label
+                        htmlFor="title"
+                        className="block text-sm font-medium text-gray-600">
+                        Live Update Main Headline
+                      </label>
+                      <input
+                        type="text"
+                        id="LiveUpdateType"
+                        name="LiveUpdateType"
+                        value={liveUpdateHeadline}
+                        onChange={(e) => {
+                          setLiveUpdatetHeadline(e.target.value);
+                        }}
+                        placeholder="Live Update Main Headline"
+                        className="mt-2 p-3 bg-gray-200 focus:outline-none w-full border rounded-md"
+                        required
+                      />
+                    </div>
+                  </div>
                 )}
-                {fileType === "video" && (
-                  <video controls width="100%" className="h-96 object-cover">
-                    <source src={previewUrl} type={selectedFile.type} />
-                    Your browser does not support the video tag.
-                  </video>
+              </>
+            )} */}
+
+              <div className="mb-10">
+                <label className="block text-sm text-gray-600">
+                  Upload File
+                </label>
+                <input
+                  type="file"
+                  name="file"
+                  id="file"
+                  onChange={handleFileChange}
+                  className="sr-only"
+                  accept="image/*,video/*"
+                />
+                <label
+                  htmlFor="file"
+                  className="mt-1 p-2 w-full cursor-pointer border border-gray-300 rounded-md flex items-center  justify-center bg-blue-600 text-white hover:bg-gray-900">
+                  Select Image or Video
+                </label>
+                {error && <p className="text-red-500">{error}</p>}
+                {previewUrl && (
+                  <div className="mt-2">
+                    {fileType === "image" && (
+                      <img
+                        src={previewUrl}
+                        alt="Preview image"
+                        className="max-w-full h-96"
+                      />
+                    )}
+                    {fileType === "video" && (
+                      <video
+                        controls
+                        src={previewUrl}
+                        alt="Preview image"
+                        className="w-100  object-cover">
+                        <source src={previewUrl} type={selectedFile.type} />
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
+                  </div>
                 )}
               </div>
-            )}
-            {!previewUrl && updatedSelectedFile && (
-              <div className="mt-2">
-                {isImage && (
-                  <img
-                    src={updatedSelectedFile}
-                    alt="Preview"
-                    className="max-w-full h-96"
-                  />
-                )}
-                {isVideo && (
-                  <video controls width="100%" className="h-96 object-cover">
-                    <source src={updatedSelectedFile} type={fileType} />
-                    Your browser does not support the video tag.
-                  </video>
-                )}
-              </div>
-            )}
-          </div>
+              <div className="mb-6">
+                <label
+                  htmlFor="title"
+                  className="block text-sm font-bold text-gray-700 mb-1">
+                  News Editor
+                </label>
+                <ReactQuill
+                  theme="snow"
+                  value={editorText}
+                  onChange={handleEditorChange}
+                />
 
-          <div className="mb-10">
-            <label
-              htmlFor="NewsCategory"
-              className="block text-sm font-bold text-gray-700">
-              News Category
-            </label>
-            <select
-              id="NewsCategory"
-              name="NewsCategory"
-              value={selectedNewsCategory}
-              onChange={handleNewsCategoryChange}
-              className="mt-1 p-2 w-full  border border-gray-300 rounded-md">
-              <option value="" disabled>
-                Select News Category
-              </option>
-              {NewsCategorys.map((category) => (
-                <option key={category._id} value={category.name}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-10">
-            <label
-              htmlFor="NewsSubCategory"
-              className="block text-sm font-bold text-gray-700">
-              News SubCategory
-            </label>
-            <select
-              id="NewsSubCategory"
-              name="NewsSubCategory"
-              value={selectedNewsSubCategory}
-              onChange={handleNewsSubCategoryChange}
-              className="mt-1 p-2 w-full  border border-gray-300 rounded-md">
-              <option value="" disabled>
-                Select News SubCategory
-              </option>
-              {subcategories.map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
-          </div>
-          {/* Write Article */}
-          <div className="mb-6">
-            <label
-              htmlFor="title"
-              className="block text-sm font-bold text-gray-700 mb-1">
-              News Editor
-            </label>
-            <ReactQuill
-              theme="snow"
-              value={editorText}
-              onChange={handleEditorChange}
-            />
-            ;
-            {/* <Editor
+                {/* <Editor
               placeholder={"Write something..."}
               onChange={handleEditorChange}
               initialText={editorText}
             /> */}
+              </div>
+              <div className="mb-10"></div>
+              <div className="mb-10">
+                <label
+                  htmlFor="newsType"
+                  className="block text-sm text-gray-600">
+                  News Category
+                </label>
+                <select
+                  id="NewsCategory"
+                  name="NewsCategory"
+                  value={selectedNewsCategory}
+                  onChange={handleNewsCategoryChange}
+                  className="mt-2 p-3 bg-gray-200 focus:outline-none w-full border rounded-md">
+                  <option value="" disabled>
+                    Select News Category
+                  </option>
+                  {NewsCategorys.map((category) => (
+                    <option value={category.title} key={category._id}>
+                      {category.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-10">
+                <label
+                  htmlFor="newsType"
+                  className="block text-sm text-gray-600">
+                  News Sub Category
+                </label>
+                <select
+                  id="NewsSubCategory"
+                  name="NewsSubCategory"
+                  value={selectedNewsSubCategory}
+                  onChange={handleNewsSubCategoryChange}
+                  className="mt-2 p-3 bg-gray-200 focus:outline-none w-full border rounded-md">
+                  <option value="" disabled>
+                    Select News Sub Category
+                  </option>
+                  {subcategories.map((subcategory) => (
+                    <option value={subcategory.name} key={subcategory._id}>
+                      {subcategory.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-10">
+                <label
+                  htmlFor="newsType"
+                  className="block text-sm text-gray-600">
+                  News Tag
+                </label>
+                <select
+                  id="NewsTag"
+                  name="NewsTag"
+                  value={selectedTag}
+                  onChange={handleNewstagChange}
+                  className="mt-2 p-3 bg-gray-200 focus:outline-none w-full border rounded-md">
+                  <option value="" disabled>
+                    Select News Tag
+                  </option>
+                  {tags.map((NewsTag) => (
+                    <option value={NewsTag.name} key={NewsTag._id}>
+                      {NewsTag.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-10">
+                <label
+                  htmlFor="author"
+                  className="block text-sm  text-gray-600">
+                  Author
+                </label>
+                <input
+                  type="text"
+                  id="author"
+                  name="author"
+                  value={authorName}
+                  onChange={(e) => setAuthorName(e.target.value)}
+                  className="mt-2 p-3 bg-gray-200 focus:outline-none w-full border rounded-md"
+                />
+              </div>
+              <div className="mb-10 mt-4">
+                <button
+                  type="submit"
+                  onClick={handleDataSubmit}
+                  className="bg-gray-900 w-full text-white p-2  rounded-md hover:bg-blue-600">
+                  Submit
+                </button>
+              </div>
+            </form>
           </div>
-          <div className="mb-10">
-            <label
-              htmlFor="NewsTag"
-              className="block text-sm font-bold text-gray-700">
-              News Tag
-            </label>
-            <select
-              id="NewsTag"
-              name="NewsTag"
-              value={selectedTag}
-              onChange={handleNewstagChange}
-              className="mt-1 p-2 w-full  border border-gray-300 rounded-md">
-              <option value="" disabled>
-                Select News Tag
-              </option>
-              {tags.map((tags) => (
-                <option key={tags._id} value={tags.name}>
-                  {tags.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          {/* Add more input fields for sub-news type, news text, and author name as needed */}
-          <div className="mb-10 mt-8">
-            <label
-              htmlFor="title"
-              className="block text-sm font-bold text-gray-700">
-              Author
-            </label>
-            <input
-              type="text"
-              id="authorName"
-              name="authorName"
-              value={authorName}
-              onChange={(e) => setAuthorName(e.target.value)}
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-          <div className="mb-10 mt-4">
-            <button
-              type="submit"
-              onClick={handleDataSubmit}
-              className="bg-gray-900 w-full text-white p-2 rounded-md hover:bg-blue-600">
-              Submit
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </>
   );

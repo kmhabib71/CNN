@@ -22,6 +22,7 @@ function CreateNews() {
   const [selectedLiveUpdateType, setSelectedLiveUpdateType] = useState("");
   const [liveUpdateHeadline, setLiveUpdatetHeadline] = useState([]);
   const [isLiveUpdateType, setIsLiveUpdateType] = useState(false);
+  const [showHeadLine, setShowHeadLine] = useState("");
 
   const handleNewsTypeChange = (e) => {
     setSelectedType(e.target.value);
@@ -104,7 +105,20 @@ function CreateNews() {
           const liveUpdateResponse = await axios.get(
             `${backEndBaseUrl}/api/getLastFiveLiveUpdateNewsType`
           );
-          setLiveUpdateTypes(liveUpdateResponse.data);
+          setLiveUpdateTypes(
+            liveUpdateResponse.data.map((item) => item.liveUpdateType)
+          );
+          if (showHeadLine) {
+            const liveUpdateHeadlineResponse = await axios.get(
+              `${backEndBaseUrl}/api/getHeadline/${showHeadLine}`
+            );
+            console.log(
+              "liveUpdateHeadlineResponse is:",
+              liveUpdateHeadlineResponse
+            );
+            setLiveUpdatetHeadline(liveUpdateHeadlineResponse.data);
+          }
+          console.log("liveUpdateResponse is: ", liveUpdateResponse);
         } else {
           setIsLiveUpdateType(false);
         }
@@ -138,6 +152,7 @@ function CreateNews() {
   }, [selectedNewsCategory]);
   const handleLiveUpdateTypeChange = async (e) => {
     setSelectedLiveUpdateType(e.target.value);
+    setShowHeadLine(e.target.value);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();

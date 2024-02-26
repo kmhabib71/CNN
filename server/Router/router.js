@@ -17,10 +17,14 @@ route.get(
   "/api/getOldestNewsArticleByType/:liveUpdateType",
   controller.getOldestNewsArticleByType
 );
-route.get("/api/news", controller.getNews);
-route.get("/api/getNewsByArticle/:id", controller.getArticleById);
+
 // ..............News Route...........
 const { connectDB } = require("../Database/connection");
+route.get("/api/news", newsController.getNews);
+route.get(
+  "/api/getNewsByArticleId/:articleId",
+  newsController.getNewsByArticleId
+);
 route.get("/api/types", newsController.getNewsType);
 route.post("/api/createnews", upload.single("file"), function (req, res, next) {
   newsController.createNews(req, res, next, connectDB.client);
@@ -30,6 +34,7 @@ route.get(
   "/api/getLastFiveLiveUpdateNewsType",
   newsController.getLastFiveLiveUpdateNewsType
 );
+route.get("/api/getHeadline/:liveUpdateType", newsController.getHeadLine);
 route.get("/api/getAllNewsCategories", newsController.getAllNewsCategories);
 route.get(
   "/api/getsubcategories/:catName",

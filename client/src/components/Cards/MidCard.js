@@ -10,9 +10,7 @@ function MidCard({ link, imageSrc, tag, text, horizontal, color, db }) {
           {db ? (
             <FileDisplay
               fileName={imageSrc}
-              className={
-                "w-full h-full object-cover transition-transform transform group-hover:scale-100"
-              }
+              className="w-full h-full object-cover transition-transform transform group-hover:scale-100"
             />
           ) : (
             <img

@@ -76,65 +76,6 @@ exports.mainSearch = async function (req, res) {
   }
 };
 
-exports.getArticleById = async (req, res) => {
-  try {
-    const article = await News.findById(req.params.id);
-    if (!article) {
-      return res.status(404).json({ message: "Article not found" });
-    }
-    res.json(article);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server Error" });
-  }
-};
-exports.getNews = async (req, res) => {
-  const { category, subcategory, type, tag, limit } = req.query;
-  try {
-    let query = {};
-
-    // Filter by category
-    if (category) {
-      query.newsCategory = category;
-    }
-
-    // Filter by subcategory
-    if (subcategory) {
-      query.subCategory = subcategory;
-    }
-
-    // Filter by type
-    if (type) {
-      query.type = type;
-    }
-
-    // Filter by tag
-    if (tag) {
-      query.tag = tag;
-    }
-    console.log("query is: ", query);
-    console.log("limit is: ", limit);
-    // Construct the query
-    // Select only specific fields
-    const selectFields =
-      "_id file title tag newsCategory subCategory liveUpdateType";
-    // Construct the query and limit the number of documents returned
-    let newsQuery = News.find(query)
-      .select(selectFields)
-      .limit(limit ? parseInt(limit) : undefined);
-    console.log("newsQuery is: ", newsQuery);
-    // Execute the query
-    const news = await newsQuery.exec();
-    console.log("News is: ", news);
-    // Send the response
-    res.status(200).json(news);
-  } catch (err) {
-    // Handle errors
-    console.error(err);
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
-
 exports.isAuth = async (req, res) => {
   // console.log("Middleware is running");
   // console.log("Session is", req.session);
@@ -147,8 +88,7 @@ exports.isAuth = async (req, res) => {
   // const userRole = "Admin";
   const userid = req.session.userid;
   // const userid = "659a832725988cb6842f2b8a";
-  console.log("Role is: ", userRole);
-  console.log("userid is: ", userid);
+
   // check if the user role is equal to Admin, Editor or Writer
   if (userRole === "Admin") {
     // do something for Admin users

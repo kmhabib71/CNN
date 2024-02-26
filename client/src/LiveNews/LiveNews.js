@@ -2,14 +2,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 // import io from "socket.io-client";
-import Header from "../components/Common/Header/Header";
-import Footer from "../components/Common/Footer/Footer";
-import PulsatingDot from "../Herlpers/PulsatingDot";
-import NewUpdateBanner from "../Herlpers/NewUpdateBanner";
+import Header from "../Commmon/Header/Header";
+import Footer from "../Commmon/Footer/Footer";
+import PulsatingDot from "../Helpers/PulsatingDot";
+import NewUpdateBanner from "../Helpers/NewUpdateBanner";
 import axios from "axios";
 import socket from "../Helpers/Socket";
-import TimeComponent from "../Herlpers/TimeComponent";
-import FileDisplay from "../Herlpers/DisplayFIle";
+import TimeComponent from "../Helpers/TimeComponent";
+import FileDisplay from "../Helpers/FileDisplay";
 
 const LiveNews = () => {
   const [news, setNews] = useState([]);

@@ -14,6 +14,61 @@ const client = new mongodb.MongoClient(
   "mongodb+srv://mohammedsaimuae:Flower71@cluster0.rbmepuu.mongodb.net/CNN?retryWrites=true&w=majority"
 );
 
+exports.getNewsByArticleId = async (req, res) => {
+  try {
+    const article = await News.findById(req.params.articleId);
+    if (!article) {
+      return res.status(404).json({ message: "Article not found" });
+    }
+    res.json(article);
+  } catch (error) {
+    console.log(error);
+  }
+};
+exports.getNews = async (req, res) => {
+  const { category, subcategory, type, tag, limit, order } = req.query;
+  console.log("req.query is: ", req.query);
+  try {
+    let query = {};
+    //Filter by category
+    if (category) {
+      query.newsCategory = category;
+    }
+    //Filter by subcategory
+    if (subcategory) {
+      query.subCategory = subcategory;
+    }
+    //Filter by type
+    if (type) {
+      query.type = type;
+    }
+    //Filter by tag
+    if (tag) {
+      query.tag = tag;
+    }
+    const selectedFields =
+      "_id file title tag newsCategory subCategory liveUpdateType";
+
+    let newsQuery = News.find(query)
+      .select(selectedFields)
+      .limit(limit ? parseInt(limit) : undefined)
+      .sort(
+        order === "asc"
+          ? { createdAt: 1 }
+          : order === "desc"
+          ? { createdAt: -1 }
+          : undefined
+      );
+
+    const news = await newsQuery.exec();
+    console.log("news is: ", news);
+    res.status(200).json(news);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ Message: "Internal server error" });
+  }
+};
+
 exports.supportForm = async (req, res) => {
   const { name, email, subject, message } = req.body;
 
@@ -446,8 +501,37 @@ exports.newsList = async function (req, res) {
   }
 };
 
+exports.getHeadLine = async function (req, res) {
+  const { liveUpdateType } = req.params;
+  console.log("liveUpdateType is: ", liveUpdateType);
+  try {
+    // Find the last document with the specified liveUpdateType
+    const lastLiveUpdate = await News.findOne({
+      liveUpdateType: liveUpdateType,
+      isLiveUpdate: true, // Make sure it's a live update
+    }).sort({ createdAt: -1 }); // Sort in descending order based on creation time
+    console.log(
+      "lastLiveUpdate.liveUpdateHeadline is: ",
+      lastLiveUpdate.liveUpdateHeadline
+    );
+    if (lastLiveUpdate) {
+      res.json(lastLiveUpdate.liveUpdateHeadline);
+    } else {
+      res.status(404).json({ error: "Live update not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 exports.getLastFiveLiveUpdateNewsType = async function (req, res) {
   try {
+    const lastFiveLiveUpdates = await News.find({ isLiveUpdate: true })
+      .sort({ createdAt: -1 }) // Sort by createdAt timestamp in descending order
+      .limit(5); // Limit to five documents
+
+    // Send the retrieved documents as the response
+    res.json(lastFiveLiveUpdates);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error. " });
   }
